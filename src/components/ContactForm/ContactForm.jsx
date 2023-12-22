@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './ContactForm.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContactThunk, getContacts } from '../../redux/operations';
+import { addContactThunk, getContacts } from '../../redux/contacts/operations';
 import { nanoid } from '@reduxjs/toolkit';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';

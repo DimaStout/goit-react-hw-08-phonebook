@@ -1,7 +1,7 @@
 import s from './ContactList.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteContactThunk } from '../../redux/sliceContact';
-import { getContacts } from '../../redux/selectors';
+import { deleteContactThunk } from '../../redux/contacts/sliceContact';
+import { getContacts } from '../../redux/contacts/selectors';
 
 const ContactList = () => {
   const contacts = useSelector(getContacts);

@@ -2,10 +2,10 @@ import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
 import Filter from './Filter/Filter';
 import s from './App.module.css';
-import { fetchAllContactsThunk } from '../redux/operations';
+import { fetchAllContactsThunk } from '../redux/contacts/operations';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { selectError, selectLoading } from '../redux/selectors';
+import { selectError, selectLoading } from '../redux/contacts/selectors';
 
 const App = () => {
   const dispatch = useDispatch();
