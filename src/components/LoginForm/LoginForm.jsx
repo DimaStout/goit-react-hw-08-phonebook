@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import { registerThunk } from '../../redux/auth/authOperations';
+import { loginThunk } from '../../redux/auth/authOperations';
 import { selectIsLoggedIn } from '../../redux/auth/authSelectors';
 
-import s from './RegisterForm.module.css';
+import s from './LoginForm.module.css';
 
-export const RegisterForm = () => {
+export const LoginForm = () => {
   const dispatch = useDispatch();
   const {
     handleSubmit,
@@ -19,10 +19,10 @@ export const RegisterForm = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
   const onSubmit = data => {
-    dispatch(registerThunk(data))
+    dispatch(loginThunk(data))
       .unwrap()
       .catch(error => {
-        toast.error('Invalid email or email already exists in the database');
+        toast.error('Invalid email or password');
       });
   };
 
@@ -31,29 +31,9 @@ export const RegisterForm = () => {
   }
 
   return (
-    <form className={s.regiserForm} onSubmit={handleSubmit(onSubmit)}>
-      <p className={s.rTitle}>Register </p>
-      <p className={s.rMessage}>Join now for complete access to the app </p>
-      <div>
-        <label className={s.rLabel}>Name</label>
-        <input
-          {...register('name', {
-            required: 'Please provide your name',
-            minLength: {
-              value: 3,
-              message: 'Please enter a name with at least 3 characters',
-            },
-          })}
-          type="text"
-          placeholder="Full Name"
-          className={s.rInput}
-        />
-        {formErrors.name && (
-          <p className={s.errorMessage}>{formErrors.name.message}</p>
-        )}
-      </div>
-      <div className={s.rFormGroup}>
-        <label className={s.rLabel}>Email</label>
+    <form className={s.loginForm} onSubmit={handleSubmit(onSubmit)}>
+      <div className={s.formGroup}>
+        <label className={s.label}>Email</label>
         <input
           {...register('email', {
             required: 'Please provide your email',
@@ -62,16 +42,16 @@ export const RegisterForm = () => {
               message: 'Ensure your email is at least 6 characters long',
             },
           })}
+          className={s.input}
           type="email"
           placeholder="Email"
-          className={s.rInput}
         />
         {formErrors.email && (
           <p className={s.errorMessage}>{formErrors.email.message}</p>
         )}
       </div>
-      <div className={s.rFormGroup}>
-        <label className={s.rLabel}>Password</label>
+      <div className={s.formGroup}>
+        <label className={s.label}>Password</label>
         <input
           {...register('password', {
             required: 'Please enter your password',
@@ -80,22 +60,21 @@ export const RegisterForm = () => {
               message: 'Make sure your password is at least 6 characters long',
             },
           })}
+          className={s.input}
           type="password"
           placeholder="Password"
-          className={s.rInput}
         />
         {formErrors.password && (
           <p className={s.errorMessage}>{formErrors.password.message}</p>
         )}
         <div className={s.centerBtn}>
-          <button className={s.logBtn}>Sign up</button>
+          <button className={s.logBtn}>Sign in</button>
         </div>
 
-        <span className={s.loginLink}>
-          Have an account already? <Link to={'/login'}>Log in now</Link>
+        <span className={s.registerLink}>
+          New here? <Link to={'/register'}>Create an account</Link>
         </span>
       </div>
     </form>
   );
 };
-export default RegisterForm;

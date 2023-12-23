@@ -1,4 +1,5 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
+
 import {
   addContactThunk,
   deleteContactThunk,
@@ -26,10 +27,7 @@ export const sliceContact = createSlice({
         state.loading = false;
       })
       .addCase(deleteContactThunk.fulfilled, (state, { payload }) => {
-        const contactIdToDelete = payload;
-        state.contacts = state.contacts.filter(
-          item => item.id !== contactIdToDelete
-        );
+        state.contacts = state.contacts.filter(item => item.id !== payload.id);
         state.loading = false;
       })
       .addMatcher(
@@ -38,7 +36,7 @@ export const sliceContact = createSlice({
           addContactThunk.pending,
           deleteContactThunk.pending
         ),
-        state => {
+        (state, { payload }) => {
           state.loading = true;
           state.error = null;
         }
@@ -58,11 +56,5 @@ export const sliceContact = createSlice({
 });
 
 export const contactReducer = sliceContact.reducer;
-export const { addContact: addContactAction, deleteContact } =
-  sliceContact.actions;
-export {
-  addContactThunk,
-  deleteContactThunk,
-  fetchAllContactsThunk,
-  getContacts,
-} from './operations';
+
+export const { addContact, deleteContact } = sliceContact.actions;
